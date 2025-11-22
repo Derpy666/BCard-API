@@ -2,8 +2,8 @@
   "NODE_ENV": "development",
   "PORT": 8181,
   "TOKEN_GENERATOR": "jwt",
-  "DB_NAME": "noam",
-  "DB_PASSWORD": "NoamProject5627",
+  "DB_NAME": "",
+  "DB_PASSWORD": "",
   "LOGGER": "morgan",
   "DB": "MONGODB"
 }
