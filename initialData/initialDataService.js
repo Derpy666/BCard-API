@@ -4,13 +4,15 @@ const normalizeCard = require("../cards/helpers/normalizeCard");
 const { createUser } = require("../users/models/usersAccessDataService");
 const { create } = require("../cards/models/cardsDataAccessService");
 const { generateUserPassword } = require("../users/helpers/bcrypt");
+const { auth } = require("../auth/authService");
 const chalk = require("chalk");
 
 const generateInitialCards = async () => {
   const { cards } = data;
   cards.forEach(async (card) => {
     try {
-      const userId = "6376274068d78742d84f31d2";
+      auth(req, res, () => {})
+      const userId = req.user._id;
       card = await normalizeCard(card, userId);
       await create(card);
       return;

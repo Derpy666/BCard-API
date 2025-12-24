@@ -89,6 +89,7 @@ const like = async (cardId, userId) => {
       if (!cardLikes) {
         card.likes.push(userId);
         card = await card.save();
+        console.log(card.likes)
         return Promise.resolve(card);
       }
 
@@ -112,7 +113,7 @@ const remove = async (cardId, user) => {
       if (!card)
         throw new Error("A card with this ID cannot be found in the database");
 
-      if (!user.isAdmin && user._id !== card.user_id)
+      if (user._id != card.user_id.toString() && !user.isAdmin)
         throw new Error(
           "Authorization Error: Only the user who created the business card or admin can delete this card"
         );

@@ -71,8 +71,8 @@ const updateUser = async (userId, rawUser) => {
     if (error) {
       return Promise.reject(error);
     }
-    user = normalizeUser(user);
-    user = await update(userId, card);
+    user = normalizeUser(rawUser);
+    user = await update(userId, user);
     return Promise.resolve(user);
   } catch (error) {
     return Promise.reject(error);

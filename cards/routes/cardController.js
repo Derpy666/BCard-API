@@ -9,6 +9,7 @@ const {
   likeCard,
   deleteCard,
 } = require("../services/cardService");
+const { auth } = require("../../auth/authService")
 const router = express.Router();
 
 router.get("/", async (req, res) => {
@@ -22,7 +23,8 @@ router.get("/", async (req, res) => {
 
 router.get("/my-cards", async (req, res) => {
   try {
-    const userId = 123456;
+    auth(req, res, () => {})
+    const userId = req.user._id;
     const card = await getMyCards(userId);
     return res.send(card);
   } catch (error) {
@@ -63,7 +65,8 @@ router.put("/:id", async (req, res) => {
 router.patch("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const userId = "123456";
+    auth(req, res, () => {})
+    const userId = req.user._id;
     const card = await likeCard(id, userId);
     return res.send(card);
   } catch (error) {
@@ -74,7 +77,9 @@ router.patch("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const card = await deleteCard(id);
+    auth(req, res, () => {})
+    const user = req.user;
+    const card = await deleteCard(id, user);
     return res.send(card);
   } catch (error) {
     return handleError(res, error.status || 500, error.message);
