@@ -89,7 +89,6 @@ const like = async (cardId, userId) => {
       if (!cardLikes) {
         card.likes.push(userId);
         card = await card.save();
-        console.log(card.likes)
         return Promise.resolve(card);
       }
 
